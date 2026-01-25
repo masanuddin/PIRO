@@ -1,8 +1,11 @@
+html,
+body,
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
 }
 
 .logo {
@@ -40,3 +43,13 @@
 .read-the-docs {
   color: #888;
 }
+
+.input {
+  @apply w-full px-4 py-2 border border-slate-200 rounded-lg
+         focus:outline-none focus:ring-2 focus:ring-blue-500
+         text-sm;
+}
+.label {
+  @apply text-sm text-slate-500 mb-1;
+}
+

@@ -1,21 +1,9 @@
 import { useEffect, useState } from "react";
 import { getDates } from "./services/api";
+import Home from "./pages/Home";
 
 function App() {
-  const [dates, setDates] = useState([]);
-
-  useEffect(() => {
-    getDates().then(setDates);
-  }, []);
-
-  return (
-    <div>
-      <h1>Pilates Booking</h1>
-      {dates.map(d => (
-        <button key={d}>{d}</button>
-      ))}
-    </div>
-  );
+  return <Home />;
 }
 
 export default App;
