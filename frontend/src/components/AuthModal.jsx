@@ -1,212 +1,207 @@
 import { useState, useEffect } from "react";
-import { login, register } from "../services/auth";
 import { useAuth } from "../context/AuthContext";
 
 export default function AuthModal() {
-    const {
-        authTab,
-        closeAuth,
-        login: saveUser,
-        register: registerUser,
-    } = useAuth();
+  const {
+    authTab,
+    closeAuth,
+    login: saveUser,
+    register: registerUser,
+  } = useAuth();
 
-    const [tab, setTab] = useState(authTab);
-    const [form, setForm] = useState({
-        name: "",
-        email: "",
-        phone: "",
-        password: "",
-        confirmPassword: "",
-    });
+  const [tab, setTab] = useState(authTab);
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
+  useEffect(() => {
+    setTab(authTab);
+  }, [authTab]);
 
-    useEffect(() => {
-        setTab(authTab);
-    }, [authTab]);
+  function handleChange(e) {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  }
 
-    function handleChange(e) {
-        setForm({ ...form, [e.target.name]: e.target.value });
-    }
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
 
-    async function handleSubmit(e) {
-        e.preventDefault();
-        setError("");
-        setLoading(true);
-
-        try {
-        if (tab === "login") {
+    try {
+      if (tab === "login") {
         await saveUser(form.email, form.password);
-        } else {
+      } else {
         if (form.password !== form.confirmPassword) {
-            throw new Error("Password tidak sama");
+          throw new Error("Password tidak sama");
         }
 
         await registerUser({
-            name: form.name,
-            email: form.email,
-            phone: form.phone,
-            password: form.password,
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          password: form.password,
         });
-        }
+      }
 
-
-        closeAuth();  
-        } catch (err) {
-        setError(err.message);
-        } finally {
-        setLoading(false);
-        }
+      closeAuth();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
+  }
 
-    return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-        <div
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            onClick={closeAuth}
-        />
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* BACKDROP */}
+      <div
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        onClick={closeAuth}
+      />
 
-        <div className="relative bg-white w-full max-w-md rounded-2xl p-6 shadow-xl z-10">
-            <button
+      {/* MODAL */}
+      <div
+        className="
+          relative bg-white w-full max-w-md rounded-2xl shadow-xl z-10
+          max-h-[90vh] overflow-y-auto
+        "
+      >
+        <div className="p-6 pb-8">
+          <button
             onClick={closeAuth}
             className="absolute top-4 right-4 text-slate-400"
-            >
+          >
             ✕
-            </button>
+          </button>
 
-            <h2 className="text-xl font-semibold">
+          <h2 className="text-xl font-semibold">
             {tab === "login" ? "Masuk ke PIRO" : "Daftar di PIRO"}
-            </h2>
+          </h2>
 
-            <p className="text-sm text-slate-500 mt-1">
+          <p className="text-sm text-slate-500 mt-1">
             {tab === "login"
-                ? "Masuk untuk memesan layanan favorit kamu"
-                : "Buat akun untuk mulai memesan layanan"}
-            </p>
+              ? "Masuk untuk memesan layanan favorit kamu"
+              : "Buat akun untuk mulai memesan layanan"}
+          </p>
 
-            {/* TAB */}
-            <div className="flex bg-slate-100 rounded-lg p-1 mt-4">
+          {/* TAB */}
+          <div className="flex bg-slate-100 rounded-lg p-1 mt-4">
             <button
-                onClick={() => setTab("login")}
-                className={`flex-1 py-2 rounded-lg text-sm ${
+              type="button"
+              onClick={() => setTab("login")}
+              className={`flex-1 py-2 rounded-lg text-sm ${
                 tab === "login" && "bg-white shadow"
-                }`}
+              }`}
             >
-                Masuk
+              Masuk
             </button>
             <button
-                onClick={() => setTab("register")}
-                className={`flex-1 py-2 rounded-lg text-sm ${
+              type="button"
+              onClick={() => setTab("register")}
+              className={`flex-1 py-2 rounded-lg text-sm ${
                 tab === "register" && "bg-white shadow"
-                }`}
+              }`}
             >
-                Daftar
+              Daftar
             </button>
-            </div>
+          </div>
 
-            <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-
+          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             {tab === "register" && (
-                <>
+              <>
                 <div>
-                    <label className="block text-sm text-slate-600 mb-1">
-                    Nama Lengkap
-                    </label>
-                    <input
+                  <label className="block text-sm mb-1">Nama Lengkap</label>
+                  <input
                     name="name"
-                    className="w-full px-4 py-2 border border-slate-300 rounded-lg
-                                focus:outline-none focus:ring-2 focus:ring-blue-500"
                     onChange={handleChange}
+                    className="w-full px-4 py-2 border rounded-lg"
                     required
-                    />
+                  />
                 </div>
 
                 <div>
-                    <label className="block text-sm text-slate-600 mb-1">
-                    Nomor Telepon
-                    </label>
-                    <input
+                  <label className="block text-sm mb-1">Nomor Telepon</label>
+                  <input
                     name="phone"
-                    className="w-full px-4 py-2 border border-slate-300 rounded-lg
-                                focus:outline-none focus:ring-2 focus:ring-blue-500"
                     onChange={handleChange}
+                    className="w-full px-4 py-2 border rounded-lg"
                     required
-                    />
+                  />
                 </div>
-                </>
+              </>
             )}
 
             <div>
-                <label className="block text-sm text-slate-600 mb-1">
-                Email
-                </label>
-                <input
+              <label className="block text-sm mb-1">Email</label>
+              <input
                 name="email"
                 type="email"
-                className="w-full px-4 py-2 border border-slate-300 rounded-lg
-                            focus:outline-none focus:ring-2 focus:ring-blue-500"
                 onChange={handleChange}
+                className="w-full px-4 py-2 border rounded-lg"
                 required
-                />
+              />
             </div>
 
             <div>
-                <label className="block text-sm text-slate-600 mb-1">
-                Password
-                </label>
-                <input
+              <label className="block text-sm mb-1">Password</label>
+              <input
                 name="password"
                 type="password"
-                className="w-full px-4 py-2 border border-slate-300 rounded-lg
-                            focus:outline-none focus:ring-2 focus:ring-blue-500"
                 onChange={handleChange}
+                className="w-full px-4 py-2 border rounded-lg"
                 required
-                />
+              />
             </div>
 
             {tab === "register" && (
-                <div>
-                <label className="block text-sm text-slate-600 mb-1">
-                    Konfirmasi Password
+              <div>
+                <label className="block text-sm mb-1">
+                  Konfirmasi Password
                 </label>
                 <input
-                    name="confirmPassword"
-                    type="password"
-                    className="w-full px-4 py-2 border border-slate-300 rounded-lg
-                            focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    onChange={handleChange}
-                    required
+                  name="confirmPassword"
+                  type="password"
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  required
                 />
-                </div>
+              </div>
             )}
 
-            {error && (
-                <p className="text-sm text-red-500">{error}</p>
-            )}
+            {error && <p className="text-sm text-red-500">{error}</p>}
 
             <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white py-2 rounded-lg font-medium"
+              type="submit"
+              disabled={loading}
+              className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white py-2 rounded-lg"
             >
-            {loading ? "Loading..." : tab === "login" ? "Masuk" : "Daftar"}
+              {loading
+                ? "Loading..."
+                : tab === "login"
+                ? "Masuk"
+                : "Daftar"}
             </button>
-            </form>
+          </form>
 
-
-            <div className="my-6 text-center text-xs text-slate-400">
+          <div className="my-6 text-center text-xs text-slate-400">
             ATAU LANJUTKAN DENGAN
-            </div>
+          </div>
 
-            <button className="w-full border py-2 rounded-lg text-sm">
+          <button className="w-full border py-2 rounded-lg text-sm">
             Lanjutkan dengan Google
-            </button>
+          </button>
 
-            <p className="text-xs text-slate-400 mt-4 text-center">
+          <p className="text-xs text-slate-400 mt-4 text-center">
             Dengan melanjutkan, kamu menyetujui Syarat & Ketentuan kami
-            </p>
+          </p>
         </div>
-        </div>
-    );
+      </div>
+    </div>
+  );
 }
