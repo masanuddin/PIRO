@@ -41,7 +41,7 @@ export default function BookingBox() {
               hover:bg-blue-50
             "
           >
-            Lihat Keranjang
+            Shopping Cart
           </button>
 
           {/* Cari Jadwal */}
@@ -56,7 +56,7 @@ export default function BookingBox() {
               font-medium
             "
           >
-            Cari Jadwal
+            Book Now
           </button>
 
         </div>

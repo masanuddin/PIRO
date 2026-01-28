@@ -1,5 +1,6 @@
 import { useAuth } from "../context/AuthContext";
 import { getDisplayName } from "../utils/user";
+import { FiSettings, FiCalendar, FiChevronRight } from "react-icons/fi";
 
 export default function ProfileModal() {
   const { user, closeProfile, logout, openHistory } = useAuth();
@@ -55,27 +56,39 @@ export default function ProfileModal() {
             </p>
         </div>
 
-        {/* menu */}
-        <div className="mt-8 space-y-4">
-          <button className="w-full flex items-center justify-between px-4 py-3 rounded-xl border hover:bg-slate-50">
-            <div className="flex items-center gap-3">
-              ⚙️ <span>Settings</span>
-            </div>
-            ➜
-          </button>
+        {/* MENU */}
+        <div className="mt-8 space-y-3">
 
-            <button
-            onClick={() => {
-                closeProfile();
-                openHistory();
-            }}
-            className="w-full flex items-center justify-between px-4 py-3 rounded-xl border hover:bg-slate-50"
-            >
-            <div className="flex items-center gap-3">
-                📅 <span>Booking History</span>
+        {/* SETTINGS */}
+        <button
+            className="w-full flex items-center justify-between px-4 py-3 rounded-xl border border-slate-200
+                    hover:bg-slate-50 transition"
+        >
+            <div className="flex items-center gap-3 text-slate-700">
+            <FiSettings size={18} className="text-slate-500" />
+            <span className="text-sm font-medium">Settings</span>
             </div>
-            ➜
-            </button>
+
+            <FiChevronRight className="text-slate-400" />
+        </button>
+
+        {/* BOOKING HISTORY */}
+        <button
+            onClick={() => {
+            closeProfile();
+            openHistory();
+            }}
+            className="w-full flex items-center justify-between px-4 py-3 rounded-xl border border-slate-200
+                    hover:bg-slate-50 transition"
+        >
+            <div className="flex items-center gap-3 text-slate-700">
+            <FiCalendar size={18} className="text-slate-500" />
+            <span className="text-sm font-medium">Booking History</span>
+            </div>
+
+            <FiChevronRight className="text-slate-400" />
+        </button>
+
         </div>
 
         {/* logout */}

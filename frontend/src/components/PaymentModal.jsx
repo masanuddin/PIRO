@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../lib/supabase";
+import { FiCreditCard, FiSmartphone } from "react-icons/fi";
 
 
 export default function PaymentModal() {
@@ -168,29 +169,50 @@ export default function PaymentModal() {
                 Select Payment Method
             </h3>
 
-            <div className="flex gap-4 justify-center">
-                <button
-                onClick={() => setMethod("card")}
-                className={`px-4 py-2 rounded-lg border text-sm ${
-                    method === "card"
-                    ? "bg-blue-600 text-white border-blue-600"
-                    : "border-slate-300"
-                }`}
-                >
-                💳 Credit Card
-                </button>
+        <div className="flex gap-4 justify-center">
 
-                <button
-                onClick={() => setMethod("ewallet")}
-                className={`px-4 py-2 rounded-lg border text-sm ${
-                    method === "ewallet"
-                    ? "bg-blue-600 text-white border-blue-600"
-                    : "border-slate-300"
-                }`}
-                >
-                📱 E-Wallet
-                </button>
+        {/* CREDIT CARD */}
+        <button
+            onClick={() => setMethod("card")}
+            className={`px-4 py-3 rounded-lg border text-sm flex items-center gap-2
+            ${
+                method === "card"
+                ? "bg-blue-600 text-white border-blue-600"
+                : "border-slate-300 text-slate-700 hover:bg-slate-50"
+            }`}
+        >
+            <FiCreditCard size={16} />
+            Credit Card
+        </button>
+
+        {/* E-WALLET */}
+        <button
+            onClick={() => setMethod("ewallet")}
+            className={`px-4 py-3 rounded-lg border text-sm flex flex-col items-start
+            ${
+                method === "ewallet"
+                ? "bg-blue-600 text-white border-blue-600"
+                : "border-slate-300 text-slate-700 hover:bg-slate-50"
+            }`}
+        >
+            <div className="flex items-center gap-2">
+            <FiSmartphone size={16} />
+            E-Wallet
             </div>
+
+            <span
+            className={`mt-1 text-xs leading-tight
+                ${
+                method === "ewallet"
+                    ? "text-white/80"
+                    : "text-slate-400"
+                }`}
+            >
+            </span>
+        </button>
+
+        </div>
+
             </div>
 
             {/* CARD FORM */}

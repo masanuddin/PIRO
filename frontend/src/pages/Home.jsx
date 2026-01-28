@@ -25,10 +25,10 @@ export default function Home() {
         <div className="relative z-10 w-full flex flex-col items-center px-6">
           <div className="text-center max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-bold text-slate-900">
-              Booking Pilates Jadi Lebih Gampang
+              Book Your Pilates Session with Immersive VR Experiences
             </h1>
             <p className="mt-4 text-slate-900">
-              Pilih jadwal, timeslot, dan studio favoritmu
+              Choose your schedule, time slot, and studio, then enjoy pilates with immersive VR worlds during your session.
             </p>
           </div>
           <div className="mt-16 w-full">

@@ -1,3 +1,10 @@
+import {
+  FaGithub,
+  FaXTwitter,
+  FaWhatsapp,
+  FaTelegram,
+} from "react-icons/fa6";
+
 export default function Footer() {
   return (
     <footer className="relative z-20 bg-slate-900 text-slate-300">
@@ -10,7 +17,7 @@ export default function Footer() {
           <div className="md:col-span-1">
             <h2 className="text-xl font-semibold text-white">PIRO</h2>
             <p className="mt-4 text-sm text-slate-400 leading-relaxed">
-              PIRO is a pilates booking platform designed to help you book your schedule, time slot, and studio seamlessly.
+              PIRO is a pilates booking platform designed to help you book your schedule, time slot, studio, and immersive VR experiences seamlessly.
             </p>
           </div>
 
@@ -65,22 +72,40 @@ export default function Footer() {
             © 2026 PIRO App. All rights reserved.
           </p>
 
-          {/* SOCIAL */}
-          <div className="flex gap-4">
-            <div className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 cursor-pointer">
-              🌐
+          <div className="flex gap-3">
+            {/* GitHub */}
+            <a
+              href="https://github.com/masanuddin/PIRO"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center
+                        text-white/70 hover:text-white hover:border-white/40
+                        transition cursor-pointer"
+            >
+              <FaGithub size={16} />
+            </a>
+
+            {/* Twitter / X */}
+            <div className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center
+                            text-white/70 hover:text-white hover:border-white/40
+                            transition cursor-pointer">
+              <FaXTwitter size={16} />
             </div>
-            <div className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 cursor-pointer">
-              🐦
+
+            {/* WhatsApp */}
+            <div className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center
+                            text-white/70 hover:text-white hover:border-white/40
+                            transition cursor-pointer">
+              <FaWhatsapp size={16} />
             </div>
-            <div className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 cursor-pointer">
-              💬
-            </div>
-            <div className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 cursor-pointer">
-              ✈️
+
+            {/* Telegram */}
+            <div className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center
+                            text-white/70 hover:text-white hover:border-white/40
+                            transition cursor-pointer">
+              <FaTelegram size={16} />
             </div>
           </div>
-
         </div>
       </div>
     </footer>
