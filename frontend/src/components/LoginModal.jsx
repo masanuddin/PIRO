@@ -41,10 +41,10 @@ export default function LoginModal({ onClose }) {
         </button>
 
         <h2 className="text-xl font-semibold text-slate-900">
-          Masuk ke PIRO
+          Login into PIRO
         </h2>
         <p className="text-sm text-slate-500 mt-1">
-          Masuk untuk memesan layanan favorit kamu
+          Login to book your favourite Pilates VR Experience
         </p>
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">

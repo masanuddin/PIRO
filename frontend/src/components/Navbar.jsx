@@ -51,13 +51,13 @@ export default function Navbar() {
                 onClick={openLogin}
                 className="text-sm text-slate-600"
                 >
-                Masuk
+                Login
                 </button>
                 <button
                 onClick={openRegister}
                 className="bg-blue-600 text-white text-sm px-4 py-2 rounded-lg"
                 >
-                Daftar
+                Register
                 </button>
             </div>
             ) : (

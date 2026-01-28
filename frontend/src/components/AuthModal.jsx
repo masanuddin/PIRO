@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
+import { FcGoogle } from "react-icons/fc";
 
 export default function AuthModal() {
   const {
@@ -79,13 +80,13 @@ export default function AuthModal() {
           </button>
 
           <h2 className="text-xl font-semibold">
-            {tab === "login" ? "Masuk ke PIRO" : "Daftar di PIRO"}
+            {tab === "login" ? "Log into PIRO" : "Register to PIRO"}
           </h2>
 
           <p className="text-sm text-slate-500 mt-1">
             {tab === "login"
-              ? "Masuk untuk memesan layanan favorit kamu"
-              : "Buat akun untuk mulai memesan layanan"}
+              ? "Login to book your favourite Pilates VR Experience"
+              : "Create account to book your favourite Pilates VR Experience"}
           </p>
 
           {/* TAB */}
@@ -97,7 +98,7 @@ export default function AuthModal() {
                 tab === "login" && "bg-white shadow"
               }`}
             >
-              Masuk
+              Login
             </button>
             <button
               type="button"
@@ -106,7 +107,7 @@ export default function AuthModal() {
                 tab === "register" && "bg-white shadow"
               }`}
             >
-              Daftar
+              Register
             </button>
           </div>
 
@@ -114,7 +115,7 @@ export default function AuthModal() {
             {tab === "register" && (
               <>
                 <div>
-                  <label className="block text-sm mb-1">Nama Lengkap</label>
+                  <label className="block text-sm mb-1">Full Name</label>
                   <input
                     name="name"
                     onChange={handleChange}
@@ -124,7 +125,7 @@ export default function AuthModal() {
                 </div>
 
                 <div>
-                  <label className="block text-sm mb-1">Nomor Telepon</label>
+                  <label className="block text-sm mb-1">Phone Number</label>
                   <input
                     name="phone"
                     onChange={handleChange}
@@ -160,7 +161,7 @@ export default function AuthModal() {
             {tab === "register" && (
               <div>
                 <label className="block text-sm mb-1">
-                  Konfirmasi Password
+                  Password Confirmation
                 </label>
                 <input
                   name="confirmPassword"
@@ -188,19 +189,22 @@ export default function AuthModal() {
           </form>
 
           <div className="my-6 text-center text-xs text-slate-400">
-            ATAU LANJUTKAN DENGAN
+            OR CONTINUE WITH
           </div>
 
           <button
             type="button"
             onClick={loginWithGoogle}
-            className="w-full border py-2 rounded-lg text-sm"
+            className="w-full flex items-center justify-center gap-3
+                      border border-slate-300 py-2 rounded-lg text-sm
+                      hover:bg-slate-50 transition"
           >
-            Lanjutkan dengan Google
+            <FcGoogle size={20} />
+            <span>Continue with Google</span>
           </button>
 
           <p className="text-xs text-slate-400 mt-4 text-center">
-            Dengan melanjutkan, kamu menyetujui Syarat & Ketentuan kami
+            By clicking continue, you are agreeing to our Terms of Service
           </p>
         </div>
       </div>
