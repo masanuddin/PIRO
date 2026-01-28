@@ -10,14 +10,19 @@ export default function SuccessModal() {
         year: "numeric",
       })
     : "";
-    const handleBackHome = () => {
-    closeSuccess();
-    };
 
-    const handleGoHistory = () => {
+  const handleBackHome = () => {
     closeSuccess();
-    openHistory();
-    };
+  };
+
+  const handleGoHistory = () => {
+    closeSuccess();
+
+    // ⬇️ PENTING: paksa history refresh
+    openHistory({
+      refresh: true,
+    });
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -29,7 +34,6 @@ export default function SuccessModal() {
 
       {/* CARD */}
       <div className="relative bg-white w-full max-w-md rounded-2xl shadow-xl z-10 overflow-hidden">
-
         {/* HEADER */}
         <div className="border-b px-6 py-4 flex justify-between items-center">
           <span className="font-semibold text-blue-600">PIRO</span>
@@ -78,21 +82,22 @@ export default function SuccessModal() {
             </div>
           </div>
 
-            <div className="mt-6 space-y-3">
+          {/* ACTIONS */}
+          <div className="mt-6 space-y-3">
             <button
-                onClick={handleBackHome}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium"
+              onClick={handleBackHome}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium"
             >
-                Back to Home
+              Back to Home
             </button>
 
             <button
-                onClick={handleGoHistory}
-                className="w-full border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 rounded-lg font-medium"
+              onClick={handleGoHistory}
+              className="w-full border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 rounded-lg font-medium"
             >
-                Booking History
+              Booking History
             </button>
-            </div>
+          </div>
         </div>
       </div>
     </div>

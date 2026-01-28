@@ -44,7 +44,7 @@ export default function TimeslotModal() {
     if (!time || !selectedDate) return;
 
     setLoading(true);
-    setSelectedCourt(null);
+    setSelectedCourt((prev) => prev);
 
     supabase
       .rpc("get_available_courts", {
@@ -225,7 +225,7 @@ export default function TimeslotModal() {
                     time,
                     court: selectedCourt.name,
                     court_id: selectedCourt.court_id,
-                    timeslot_id: selectedCourt.timeslot_id, // ⬅️ DI SINI
+                    timeslot_id: selectedCourt.timeslot_id,
                     price: selectedCourt.price,
                     })
                 }

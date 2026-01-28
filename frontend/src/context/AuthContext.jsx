@@ -14,14 +14,19 @@ export function AuthProvider({ children }) {
   const [selectedDate, setSelectedDate] = useState(null);
   const [paymentOpen, setPaymentOpen] = useState(false);
   const [booking, setBooking] = useState({
+    user_id: null,
     date: null,
     time: null,
     court: null,
+    court_id: null,
+    timeslot_id: null,
+    price: null,
   });
   const [successOpen, setSuccessOpen] = useState(false);
-  const [historyOpen, setHistoryOpen] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
+  const [historyOpen, setHistoryOpen] = useState(false);
+  const [historyParams, setHistoryParams] = useState(null);
 
 
   useEffect(() => {
@@ -54,8 +59,11 @@ export function AuthProvider({ children }) {
 
   const closeTimeslot = () => setTimeslotOpen(false);
 
-  const openPayment = ({ date, time, court }) => {
-    setBooking({ date, time, court });
+  const openPayment = (data) => {
+    setBooking((prev) => ({
+      ...prev,
+      ...data, // ⬅️ SIMPAN SEMUA DATA
+    }));
     setPaymentOpen(true);
     setTimeslotOpen(false);
   };
@@ -113,9 +121,16 @@ export function AuthProvider({ children }) {
     await supabase.auth.signOut();
     setProfileOpen(false); //hide
   };
+  
+  const openHistory = (params = {}) => {
+    setHistoryParams(params);
+    setHistoryOpen(true);
+  };
 
-  const openHistory = () => setHistoryOpen(true);
-  const closeHistory = () => setHistoryOpen(false);
+  const closeHistory = () => {
+    setHistoryOpen(false);
+    setHistoryParams(null);
+  };
 
   return (
     <AuthContext.Provider

@@ -157,7 +157,7 @@ export default function PaymentModal() {
             <div className="grid grid-cols-2 gap-x-8 text-sm">
                 <span>Total Cost:</span>
                 <span className="text-right font-semibold">
-                IDR 250.000
+                IDR {booking.price?.toLocaleString("id-ID")}
                 </span>
             </div>
             </div>
