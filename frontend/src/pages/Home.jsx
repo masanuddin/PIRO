@@ -4,9 +4,10 @@ import Footer from "../components/Footer";
 import ParticlesBackground from "../components/ParticlesBackground";
 import AuthModal from "../components/AuthModal";
 import { useAuth } from "../context/AuthContext";
+import ProfileModal from "../components/ProfileModal";
 
 export default function Home() {
-  const { authOpen } = useAuth();
+  const { authOpen, profileOpen } = useAuth();
 
   return (
 
@@ -33,6 +34,8 @@ export default function Home() {
       <Footer />
 
       {authOpen && <AuthModal />}
+      {authOpen && <AuthModal />}
+      {profileOpen && <ProfileModal />}
     </div>
   );
 }

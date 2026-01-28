@@ -8,6 +8,7 @@ export function AuthProvider({ children }) {
   const [authOpen, setAuthOpen] = useState(false);
   const [authTab, setAuthTab] = useState("login");
   const [loading, setLoading] = useState(true);
+  const [profileOpen, setProfileOpen] = useState(false);
 
   useEffect(() => {
     // get session on refresh
@@ -24,6 +25,10 @@ export function AuthProvider({ children }) {
 
     return () => listener.subscription.unsubscribe();
   }, []);
+
+
+  const openProfile = () => setProfileOpen(true);
+  const closeProfile = () => setProfileOpen(false);
 
   const openLogin = () => {
     setAuthTab("login");
@@ -61,6 +66,7 @@ export function AuthProvider({ children }) {
 
   const logout = async () => {
     await supabase.auth.signOut();
+    setProfileOpen(false); //hide
   };
 
   return (
@@ -70,6 +76,9 @@ export function AuthProvider({ children }) {
         loading,
         authOpen,
         authTab,
+        profileOpen,
+        openProfile,
+        closeProfile,
         openLogin,
         openRegister,
         closeAuth,
