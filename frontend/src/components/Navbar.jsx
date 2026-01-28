@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { getDisplayName } from "../utils/user";
+import piroLogo from "../assets/piro-logo.png";
 
 export default function Navbar() {
     // const [scrolled, setScrolled] = useState(false);
@@ -33,8 +34,15 @@ export default function Navbar() {
         // }`}
         // > */}
         <div className="max-w-6xl mx-auto px-6 h-full flex items-center justify-between">
-            <div className="text-xl font-semibold text-blue-600">
-            PIRO
+            <div className="flex items-center gap-2">
+            <img
+                src={piroLogo}
+                alt="PIRO Logo"
+                className="w-8 h-8 object-contain"
+            />
+            <span className="text-xl font-semibold text-blue-600">
+                PIRO
+            </span>
             </div>
 
             {!user ? (
