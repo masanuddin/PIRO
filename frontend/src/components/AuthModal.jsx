@@ -5,8 +5,9 @@ export default function AuthModal() {
   const {
     authTab,
     closeAuth,
-    login: saveUser,
-    register: registerUser,
+    login,
+    register,
+    loginWithGoogle
   } = useAuth();
 
   const [tab, setTab] = useState(authTab);
@@ -35,16 +36,13 @@ export default function AuthModal() {
 
     try {
       if (tab === "login") {
-        await saveUser(form.email, form.password);
+        await login(form.email, form.password);
       } else {
         if (form.password !== form.confirmPassword) {
           throw new Error("Password tidak sama");
         }
-
-        await registerUser({
-          name: form.name,
+        await register({
           email: form.email,
-          phone: form.phone,
           password: form.password,
         });
       }
@@ -193,7 +191,11 @@ export default function AuthModal() {
             ATAU LANJUTKAN DENGAN
           </div>
 
-          <button className="w-full border py-2 rounded-lg text-sm">
+          <button
+            type="button"
+            onClick={loginWithGoogle}
+            className="w-full border py-2 rounded-lg text-sm"
+          >
             Lanjutkan dengan Google
           </button>
 

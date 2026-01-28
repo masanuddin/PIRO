@@ -13,7 +13,7 @@ export default function Navbar() {
     // return () => window.removeEventListener("scroll", onScroll);
     // }, []);
 
-    const { user, logout, openLogin, openRegister } = useAuth();
+    const { user, openLogin, openRegister, logout } = useAuth();
 
     return (
         <nav className="
@@ -54,7 +54,7 @@ export default function Navbar() {
             ) : (
             <div className="flex items-center gap-4">
                 <span className="text-sm text-slate-700">
-                Hai, <b>{user.name}</b>
+                Hai, <b>{user.user_metadata?.name || user.email}</b>
                 </span>
                 <button
                 onClick={logout}
