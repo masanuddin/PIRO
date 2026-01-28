@@ -1,13 +1,10 @@
 package main
 
 import (
-<<<<<<< Updated upstream
 	"os"
 	"piro/handlers"
 	"piro/middleware"
 
-=======
->>>>>>> Stashed changes
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
@@ -21,8 +18,6 @@ func main() {
 			"status": "PIRO backend running 🚀",
 		})
 	})
-
-<<<<<<< Updated upstream
 	r.POST("/login", handlers.Login)
 	r.POST("/register", handlers.Register)
 
@@ -33,7 +28,3 @@ func main() {
 
 	r.Run(":" + port)
 }
-=======
-	r.Run(":8080")
-}
->>>>>>> Stashed changes
