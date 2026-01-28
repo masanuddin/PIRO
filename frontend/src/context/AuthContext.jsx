@@ -9,6 +9,17 @@ export function AuthProvider({ children }) {
   const [authTab, setAuthTab] = useState("login");
   const [loading, setLoading] = useState(true);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [scheduleOpen, setScheduleOpen] = useState(false);
+  const [timeslotOpen, setTimeslotOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [paymentOpen, setPaymentOpen] = useState(false);
+  const [booking, setBooking] = useState({
+    date: null,
+    time: null,
+    court: null,
+  });
+  const [successOpen, setSuccessOpen] = useState(false);
+
 
   useEffect(() => {
     // get session on refresh
@@ -30,6 +41,34 @@ export function AuthProvider({ children }) {
   const openProfile = () => setProfileOpen(true);
   const closeProfile = () => setProfileOpen(false);
 
+  const openSchedule = () => setScheduleOpen(true);
+  const closeSchedule = () => setScheduleOpen(false);
+
+  const openTimeslot = (date) => {
+    setSelectedDate(date);
+    setTimeslotOpen(true);
+  };
+
+  const closeTimeslot = () => setTimeslotOpen(false);
+
+  const openPayment = ({ date, time, court }) => {
+    setBooking({ date, time, court });
+    setPaymentOpen(true);
+    setTimeslotOpen(false);
+  };
+
+  const closePayment = () => setPaymentOpen(false);
+
+  const goBackToSchedule = () => {
+  setTimeslotOpen(false);
+  setScheduleOpen(true);
+  };
+
+    const goBackToTimeslot = () => {
+    setPaymentOpen(false);
+    setTimeslotOpen(true);
+  };
+
   const openLogin = () => {
     setAuthTab("login");
     setAuthOpen(true);
@@ -41,6 +80,9 @@ export function AuthProvider({ children }) {
   };
 
   const closeAuth = () => setAuthOpen(false);
+
+  const openSuccess = () => setSuccessOpen(true);
+  const closeSuccess = () => setSuccessOpen(false);
 
   const login = async (email, password) => {
     const { error } = await supabase.auth.signInWithPassword({
@@ -77,8 +119,24 @@ export function AuthProvider({ children }) {
         authOpen,
         authTab,
         profileOpen,
+        scheduleOpen,
+        timeslotOpen,
+        selectedDate,
+        paymentOpen,
+        booking,
+        successOpen,
         openProfile,
         closeProfile,
+        openSchedule,
+        closeSchedule,
+        openTimeslot,
+        closeTimeslot,
+        openPayment,
+        closePayment,
+        goBackToSchedule,
+        goBackToTimeslot,
+        openSuccess,
+        closeSuccess,
         openLogin,
         openRegister,
         closeAuth,

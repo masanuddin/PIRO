@@ -1,33 +1,65 @@
+import { useAuth } from "../context/AuthContext";
+
 export default function BookingBox() {
+  const {
+    user,
+    openSchedule,
+    openRegister,
+  } = useAuth();
+
+  const handleCariJadwal = () => {
+    if (!user) {
+      openRegister(); // 👈 force ke register
+      return;
+    }
+    openSchedule();
+  };
+
+  const handleLihatKeranjang = () => {
+    if (!user) {
+      openRegister(); // 👈 force ke register
+      return;
+    }
+    // nanti: openCart()
+    console.log("OPEN CART");
+  };
+
   return (
-    <div className="bg-blue-50 rounded-2xl p-8 shadow-md">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
+    <div className="flex justify-center">
+      <div className="bg-blue-50 rounded-2xl shadow-md px-6 py-6 inline-flex">
+        <div className="flex flex-col sm:flex-row gap-4">
 
-        <div>
-          <label className="text-sm text-slate-600">Tanggal</label>
-          <input
-            type="date"
-            className="w-full mt-2 px-4 py-2 rounded-lg border border-slate-200 bg-white"
-          />
+          {/* Lihat Keranjang */}
+          <button
+            onClick={handleLihatKeranjang}
+            className="
+              h-[44px] px-8
+              border border-blue-600
+              text-blue-600
+              rounded-lg
+              font-medium
+              hover:bg-blue-50
+            "
+          >
+            Lihat Keranjang
+          </button>
+
+          {/* Cari Jadwal */}
+          <button
+            onClick={handleCariJadwal}
+            className="
+              h-[44px] px-8
+              bg-blue-600
+              hover:bg-blue-700
+              text-white
+              rounded-lg
+              font-medium
+            "
+          >
+            Cari Jadwal
+          </button>
+
         </div>
-
-        <div>
-          <label className="text-sm text-slate-600">Timeslot</label>
-          <select className="w-full mt-2 px-4 py-2 rounded-lg border border-slate-200 bg-white">
-            <option>Pilih Waktu</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="text-sm text-slate-600">Studio / Court</label>
-          <select className="w-full mt-2 px-4 py-2 rounded-lg border border-slate-200 bg-white">
-            <option>Pilih Studio</option>
-          </select>
-        </div>
-
-        <button className="bg-blue-600 hover:bg-blue-700 text-white h-[44px] rounded-lg font-medium">
-          Cari Jadwal
-        </button>
       </div>
     </div>
   );
