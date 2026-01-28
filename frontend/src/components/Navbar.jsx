@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import { getDisplayName } from "../utils/user";
 
 export default function Navbar() {
     // const [scrolled, setScrolled] = useState(false);
@@ -57,7 +58,7 @@ export default function Navbar() {
                 onClick={openProfile}
                 className="text-sm text-slate-700 hover:underline"
                 >
-                Hai, <b>{user.email}</b>
+                Hai, <b>{getDisplayName(user)}</b> 
                 </button>
                 <button
                 onClick={logout}

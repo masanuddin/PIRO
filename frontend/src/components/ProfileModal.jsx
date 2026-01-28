@@ -1,4 +1,5 @@
 import { useAuth } from "../context/AuthContext";
+import { getDisplayName } from "../utils/user";
 
 export default function ProfileModal() {
   const { user, closeProfile, logout, openHistory } = useAuth();
@@ -6,6 +7,12 @@ export default function ProfileModal() {
     await logout();
     closeProfile();
   };
+  const avatar =
+  user?.user_metadata?.avatar_url ||
+  user?.user_metadata?.picture ||
+  null;
+
+  
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -30,13 +37,22 @@ export default function ProfileModal() {
 
         {/* avatar logo */}
         <div className="flex flex-col items-center mt-6">
-          <div className="w-20 h-20 rounded-full bg-blue-600 flex items-center justify-center text-white text-3xl">
-            👤
-          </div>
-
-          <p className="mt-4 font-medium text-slate-800">
-            {user?.email}
-          </p>
+            <div className="w-24 h-24 rounded-full bg-blue-600 flex items-center justify-center overflow-hidden">
+            {avatar ? (
+                <img
+                src={avatar}
+                alt="Profile"
+                className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
+                loading="lazy"
+                />
+            ) : (
+                <span className="text-white text-3xl">👤</span>
+            )}
+            </div>
+            <p className="mt-4 font-medium text-slate-800">
+            {getDisplayName(user)}
+            </p>
         </div>
 
         {/* menu */}

@@ -10,8 +10,7 @@ export default function Footer() {
           <div className="md:col-span-1">
             <h2 className="text-xl font-semibold text-white">PIRO</h2>
             <p className="mt-4 text-sm text-slate-400 leading-relaxed">
-              PIRO adalah platform booking pilates yang memudahkan kamu
-              memilih jadwal, timeslot, dan studio secara cepat dan nyaman.
+              PIRO is a pilates booking platform designed to help you book your schedule, time slot, and studio seamlessly.
             </p>
           </div>
 

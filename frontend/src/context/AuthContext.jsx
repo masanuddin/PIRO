@@ -107,6 +107,11 @@ export function AuthProvider({ children }) {
     const { error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: {
+          full_name: name,
+        },
+      },
     });
     if (error) throw error;
   };
