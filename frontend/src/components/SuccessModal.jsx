@@ -1,7 +1,7 @@
 import { useAuth } from "../context/AuthContext";
 
 export default function SuccessModal() {
-  const { booking, closeSuccess } = useAuth();
+  const { booking, closeSuccess, openHistory } = useAuth();
 
   const formattedDate = booking.date
     ? new Date(booking.date).toLocaleDateString("id-ID", {
@@ -16,7 +16,7 @@ export default function SuccessModal() {
 
     const handleGoHistory = () => {
     closeSuccess();
-    openProfile();
+    openHistory();
     };
 
   return (

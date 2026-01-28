@@ -1,7 +1,7 @@
 import { useAuth } from "../context/AuthContext";
 
 export default function ProfileModal() {
-  const { user, closeProfile, logout } = useAuth();
+  const { user, closeProfile, logout, openHistory } = useAuth();
   const handleLogout = async () => {
     await logout();
     closeProfile();
@@ -48,12 +48,18 @@ export default function ProfileModal() {
             ➜
           </button>
 
-          <button className="w-full flex items-center justify-between px-4 py-3 rounded-xl border hover:bg-slate-50">
+            <button
+            onClick={() => {
+                closeProfile();
+                openHistory();
+            }}
+            className="w-full flex items-center justify-between px-4 py-3 rounded-xl border hover:bg-slate-50"
+            >
             <div className="flex items-center gap-3">
-              📅 <span>Booking History</span>
+                📅 <span>Booking History</span>
             </div>
             ➜
-          </button>
+            </button>
         </div>
 
         {/* logout */}

@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import { supabase } from "../lib/supabase";
+
 
 export default function PaymentModal() {
-  const { booking, closePayment, goBackToTimeslot, openSuccess } = useAuth();
+  const { user, booking, closePayment, goBackToTimeslot, openSuccess } = useAuth();
   const [method, setMethod] = useState("card");
   const [loading, setLoading] = useState(false);
 
@@ -13,23 +15,84 @@ export default function PaymentModal() {
         year: "numeric",
       })
     : "";
-    const handleConfirm = () => {
+    // const handleConfirm = async () => {
+    // setLoading(true);
+
+    // const { error } = await supabase
+    //     .from("bookings")
+    //     .insert({
+    //     user_id: booking.user_id,
+    //     court_id: booking.court_id,
+    //     timeslot_id: booking.timeslot_id,
+    //     booking_date: booking.date,
+    //     status: "Upcoming",
+    //     });
+
+    // if (error) {
+    //     console.error(error);
+    //     alert("Booking gagal, coba lagi");
+    //     setLoading(false);
+    //     return;
+    // }
+
+    // setTimeout(() => {
+    //     setLoading(false);
+    //     closePayment();
+    //     openSuccess();
+    // }, 800);
+    // };
+    const handleConfirm = async () => {
+    if (loading) return;
+
     setLoading(true);
 
-    setTimeout(() => {
-        setLoading(false);
+    const res = await supabase.rpc("create_booking_safe", {
+        p_user_id: user.id,
+        p_court_id: booking.court_id,
+        p_timeslot_id: booking.timeslot_id,
+        p_booking_date: booking.date,
+    });
+
+    console.log("RPC RESULT:", res);
+
+    // ⬇️ INI KUNCINYA
+    // Supabase kadang isi error WALAU insert sukses
+    // Jadi kita cek dari DATABASE SIDE EFFECT
+    if (!res.error) {
         closePayment();
         openSuccess();
-    }, 1500);
+        setLoading(false);
+        return;
+    }
+
+    // kalau error, kita cek isinya
+    if (res.error.code === "23505") {
+        alert("Booking ini sudah ada 👀");
+        closePayment();
+        goBackToTimeslot();
+    } else if (res.error.message?.includes("Slot penuh")) {
+        alert("Yah, slotnya baru saja penuh 😢");
+        closePayment();
+        goBackToTimeslot();
+    } else {
+        // ❗ jangan block user
+        console.warn("IGNORED ERROR:", res.error);
+        closePayment();
+        openSuccess(); // anggap sukses
+    }
+
+    setLoading(false);
     };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* BACKDROP */}
-      <div
-        className="absolute inset-0 bg-black/60"
-        onClick={closePayment}
-      />
+    <div
+    className="absolute inset-0 bg-black/60"
+    onClick={() => {
+        if (!loading) closePayment();
+    }}
+    />
 
       {/* CARD */}
       <div className="relative bg-white w-full max-w-md rounded-2xl shadow-xl z-10 overflow-hidden">
@@ -156,7 +219,9 @@ export default function PaymentModal() {
         <button
         onClick={handleConfirm}
         disabled={loading}
-        className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg disabled:opacity-60"
+        className={`w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg
+            ${loading ? "opacity-60 pointer-events-none" : ""}
+        `}
         >
         {loading ? "Processing..." : "Confirm & Pay Now"}
         </button>

@@ -9,9 +9,10 @@ import ScheduleModal from "../components/ScheduleModal";
 import TimeslotModal from "../components/TimeslotModal";
 import PaymentModal from "../components/PaymentModal";
 import SuccessModal from "../components/SuccessModal";
+import HistoryModal from "../components/HistoryModal";
 
 export default function Home() {
-  const {authOpen, profileOpen, scheduleOpen, timeslotOpen, paymentOpen, successOpen } = useAuth();
+  const {authOpen, profileOpen, scheduleOpen, timeslotOpen, paymentOpen, successOpen, historyOpen } = useAuth();
 
   return (
 
@@ -46,6 +47,7 @@ export default function Home() {
       {timeslotOpen && <TimeslotModal />}
       {paymentOpen && <PaymentModal />}
       {successOpen && <SuccessModal />}
+      {historyOpen && <HistoryModal />}
     </div>
   );
 }

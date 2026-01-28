@@ -19,6 +19,9 @@ export function AuthProvider({ children }) {
     court: null,
   });
   const [successOpen, setSuccessOpen] = useState(false);
+  const [historyOpen, setHistoryOpen] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showHistory, setShowHistory] = useState(false);
 
 
   useEffect(() => {
@@ -111,6 +114,9 @@ export function AuthProvider({ children }) {
     setProfileOpen(false); //hide
   };
 
+  const openHistory = () => setHistoryOpen(true);
+  const closeHistory = () => setHistoryOpen(false);
+
   return (
     <AuthContext.Provider
       value={{
@@ -125,6 +131,8 @@ export function AuthProvider({ children }) {
         paymentOpen,
         booking,
         successOpen,
+        historyOpen,
+        showSuccess,
         openProfile,
         closeProfile,
         openSchedule,
@@ -137,6 +145,8 @@ export function AuthProvider({ children }) {
         goBackToTimeslot,
         openSuccess,
         closeSuccess,
+        openHistory,
+        closeHistory,
         openLogin,
         openRegister,
         closeAuth,
